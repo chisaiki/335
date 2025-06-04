@@ -5,10 +5,14 @@ private:
     double y_;
     double z_;
 
-    int* matrix_ptr = new matrix[3][3];
+    int* matrix_ptr;
 
 public:
-    Matrix33(){};
+    Matrix33()
+    {
+        matrix_ptr = new matrix[3][3];
+    };
+
     Matrix33(double x=0, double y=0, double z=0): x_(x), y_(y), z_(z){}
 
     Matrix33 operator+(Matrix33& other);
