@@ -3,5 +3,6 @@
 
 int main()
 {
-    Matrix33 matrix;
+    Matrix33 matrixnew;
+    Matrix33(matrixnew);
 }

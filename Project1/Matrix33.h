@@ -10,6 +10,6 @@ public:
     Matrix33(int& matrixArray); 
 
     /*Copy Constructor*/
-    Matrix33 (const Matrix33& previousMatrixObject);
+    matrix33Copy (const Matrix33& previousMatrixObject);
 
 };
