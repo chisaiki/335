@@ -1,7 +1,8 @@
 # Errors I Ran Into
 
 ## Syntax Errors
-``` Matrix33::printFunc()
+``` 
+    Matrix33::printFunc()
 {
     std::cout << "\nPrint Function Called" << std::endl;
 }
