@@ -3,6 +3,7 @@
 
 int main()
 {
-    Matrix33 matrixnew;
-    Matrix33(matrixnew);
+    Matrix33 firstMatrix;
+
+    firstMatrix.printFunc();
 }
