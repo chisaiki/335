@@ -4,12 +4,12 @@
 class Matrix33
 {
     public:
-    void printFunc();
+    void printFunc(int& matrixArray);
 
     Matrix33();
 
     private:
-
+    int** Matrix;
 };
 
 #endif
