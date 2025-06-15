@@ -6,6 +6,8 @@ class Matrix33
     public:
     void printFunc();
 
+    Matrix33();
+
     private:
 
 };
