@@ -1,21 +1,6 @@
 #include "Matrix33.h"
 #include <iostream>
 
-void Matrix33::printFunc()
-{
-    std::cout << "\nPrint Function Called" << std::endl;
-
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            std::cout << Matrix[i][j] << " ";
-        }
-
-        std::cout << std::endl;
-    }
-}
-
 /*Default Constructor*/
 Matrix33::Matrix33(){}
 

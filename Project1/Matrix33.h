@@ -6,8 +6,7 @@
 class Matrix33
 {
     public:
-    void printFunc();
-
+    
     Matrix33();
     Matrix33(int matrixArray[3][3]);
 
