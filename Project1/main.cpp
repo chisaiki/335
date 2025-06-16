@@ -4,7 +4,9 @@
 
 int main()
 {
-    Matrix33 firstMatrix;
+    int exampleArray[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    
+    Matrix33 firstMatrix(exampleArray);
 
     int** array = new int*[3];
     for (int i = 0; i < 3; ++i) 
@@ -20,16 +22,16 @@ int main()
         }
     }
 
+    //firstMatrix.printFunc();
 
-    for (int i = 0; i < 3; i++)
-    {
-        for (int j = 0; j < 3; j++)
-        {
-            std::cout << array[i][j];
-        }
 
-        std::cout << std::endl;
-    }
+    /*Testing Copy Constructor*/
 
-    firstMatrix.printFunc();
+    // Matrix33 newCopyObject(firstMatrix);
+    // newCopyObject.printFunc();
+    
+    Matrix33 a(exampleArray);
+    a.printFunc();
+    Matrix33 b = std::move(a); /*std::move makes this call the move constructor*/
+    b.printFunc();
 }
