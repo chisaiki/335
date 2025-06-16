@@ -36,6 +36,8 @@ Correct: ``` void Matrix33::printFunc() ```
 
 5. If its inside the class you don't need scope resolution operator ClassName::
 
+6. In C++, you cannot define a function inside another function.
+
 ```
 Incorrect Code: Matrix33& operator=(Matrix33&& otherObject)
 Correct Code: Matrix33& Matrix33::operator=(Matrix33&& otherObject)
@@ -48,6 +50,17 @@ This is wrong because the << operator *must* be a non-member (aka friend functio
     **Summary:**  
     - `friend` gives the operator access to private members.
     - This is necessary for printing internal data that isn’t public.
+7. I used the wrong function type for getting matrix data
+``` double& Matrix33::operator()(const Matrix33& matrixObject) ```
+The operator() for a matrix class is used to access or modify an element at a specific row and column, so we want to use int.
+```int& Matrix33::operator()(int row, int col);```
+
+8. ``` b[i] += ((matrixObject.Matrix[i][j]) * (vectorObject[i])); ```
+    You cannot access matrixObject.matrix[i][j] directly because matrix (actually Matrix) is a private member of the Matrix33 class. Private members can only be accessed from within the class's own methods or friend functions.
+
+    How to access matrix values from outside the class:
+    Use the public accessor I defined already [the overloaded operator()] :
+    Correct Way: ``` matrixObject(i, j)```
 
 
 
@@ -64,3 +77,35 @@ This is wrong because the << operator *must* be a non-member (aka friend functio
    ```
    In summary, C++ allows objects to be created without explicit initialization, but it's crucial to understand the implications. Default initialization of built-in types leaves them with indeterminate values, while class types are default-initialized by their constructors. Always strive to initialize objects properly to avoid undefined behavior and potential issues.
    ```
+
+### Why does the matrix object being const cause an error in line 34?
+   The error occurs because your `matrixObject` parameter in `getAx` is declared as `const Matrix33&`, but your `Matrix33::operator()(int row, int column)` is **not** marked as `const`.  
+
+    This means you cannot call `matrixObject(i, j)` on a `const` object, because the compiler cannot guarantee that the function won't modify the object.
+
+    **How to fix:**  
+    Add a `const` qualifier to your accessor in `Matrix33.h` and `Matrix33.cpp`:
+
+    ```cpp
+    // In Matrix33.h
+    int operator()(int row, int column) const;
+    ```
+
+    ```cpp
+    // In Matrix33.cpp
+    int Matrix33::operator()(int row, int column) const
+    {
+        return Matrix[row][column];
+    }
+    ```
+
+    This allows you to access matrix elements from a `const Matrix33` object.  
+    If you want to allow modification, keep the non-const version as well:
+
+    ```cpp
+    int& operator()(int row, int column);           // for modification
+    int operator()(int row, int column) const;      // for read-only access
+    ```
+
+    **Summary:**  
+    You need a `const` version of `operator()` to access elements of a `const Matrix33` object.

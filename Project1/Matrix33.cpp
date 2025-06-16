@@ -103,6 +103,11 @@ Matrix33 Matrix33::operator*(const Matrix33& other) const
     return Matrix33(resultArray);
 }
 
+int& Matrix33::operator()(int row, int column) const
+{
+    return Matrix[row][column];
+}
+
 /*Overload Operator for Matrix Print*/
 std::ostream& operator<<(std::ostream& os, const Matrix33& matrix)
 {
@@ -129,4 +134,10 @@ std::istream& operator>>(std::istream& in, Matrix33& matrix)
         }
     }
     return in;
+}
+
+int Matrix33::determinant(const Matrix33& matrixObject)
+{
+    int determinant = ((matrixObject.Matrix[0][0] * matrixObject.Matrix[1][1] * matrixObject.Matrix[2][2]) + (matrixObject.Matrix[0][1] * matrixObject.Matrix[1][2] * matrixObject.Matrix[2][0]) + (matrixObject.Matrix[0][2] * matrixObject.Matrix[1][0] * matrixObject.Matrix[2][1]) - (matrixObject.Matrix[0][2] * matrixObject.Matrix[1][1] * matrixObject.Matrix[2][0]) - (matrixObject.Matrix[0][0] * matrixObject.Matrix[1][2] * matrixObject.Matrix[2][1])  - (matrixObject.Matrix[0][1] * matrixObject.Matrix[1][0] * matrixObject.Matrix[2][2]));
+    return determinant;
 }

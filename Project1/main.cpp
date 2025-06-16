@@ -1,47 +1,39 @@
 #include <iostream>
+#include <vector>
 #include "Matrix33.h"
+#include "vector3.h"
 
+std::vector<Vector3> getAx(const Matrix33& matrixObject, Vector3& vectorObject);
 
 int main()
 {
-    int exampleArray[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int emptyInitialization[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
     
-    Matrix33 firstMatrix(exampleArray);
+    Matrix33 userMatrix(emptyInitialization);
+    std::cin >> userMatrix;
+    
+    std::cout << userMatrix.determinant(userMatrix) << std::endl;
 
-    int** array = new int*[3];
-    for (int i = 0; i < 3; ++i) 
-    {
-        array[i] = new int[3];
+    Vector3 userVector;
+    std::cin >> userVector;
+   
+    std::vector<Vector3> result = getAx(userMatrix, userVector);
+    for (const auto& vector : result) {
+        std::cout << std::endl << vector << std::endl; 
     }
 
+}
+
+std::vector<Vector3> getAx(const Matrix33& matrixObject, Vector3& vectorObject)
+{
+    std::vector<Vector3> b(3);
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
         {
-            array[i][j] == 0;
+            b[i] += (matrixObject(i, j) * vectorObject(i));
         }
     }
 
-    //firstMatrix.printFunc();
-
-
-    /*Testing Copy Constructor*/
-
-    // Matrix33 newCopyObject(firstMatrix);
-    // newCopyObject.printFunc();
-    
-    // Matrix33 a(exampleArray);
-    // a.printFunc();
-    // Matrix33 b = std::move(a); /*std::move makes this call the move constructor*/
-    // b.printFunc();
-    
-    Matrix33 a(exampleArray);
-    Matrix33 b(exampleArray);
-    Matrix33 c = a * b;
-
-    std::cout << c;
-
-    std::cin >> c;
-    std::cout << c;
-
+    return b;
 }

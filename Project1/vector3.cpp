@@ -4,10 +4,10 @@
 
 using namespace std;
 
-Vector3 Vector3::operator+(Vector3& other)
-{
-    return Vector3(x_+other.x_,y_+other.y_,z_+other.z_);
-}
+// Vector3 Vector3::operator+(Vector3& other)
+// {
+//     return Vector3(x_+other.x_,y_+other.y_,z_+other.z_);
+// }
 
 
 Vector3 Vector3::operator-(Vector3& other)
@@ -49,15 +49,23 @@ ostream& operator<<(ostream& out,const Vector3& p)
 
 istream& operator>>(istream& in, Vector3& p)
 {
-    cout<<"Enter a Point(x,y,z): "<<endl;
+    cout<<"Enter 3 integer values: "<<endl;
     in>>p.x_>>p.y_>>p.z_;
     return in;
 }
 
 
-double& Vector3::operator()(int row)
+double& Vector3::operator()(int row) 
 {
     if(row <= 0) return x_;
     else if(row == 1) return y_;
     else return z_;
+}
+
+Vector3& Vector3::operator+=(const Vector3& other)
+{
+    x_ += other.x_;
+    y_ += other.y_;
+    z_ += other.z_;
+    return *this;
 }
