@@ -30,8 +30,15 @@ int main()
     // Matrix33 newCopyObject(firstMatrix);
     // newCopyObject.printFunc();
     
+    // Matrix33 a(exampleArray);
+    // a.printFunc();
+    // Matrix33 b = std::move(a); /*std::move makes this call the move constructor*/
+    // b.printFunc();
+    
     Matrix33 a(exampleArray);
-    a.printFunc();
-    Matrix33 b = std::move(a); /*std::move makes this call the move constructor*/
-    b.printFunc();
+    Matrix33 b(exampleArray);
+    Matrix33 c = a * b;
+
+    std::cout << c;
+
 }

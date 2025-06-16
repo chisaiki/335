@@ -42,6 +42,13 @@ Correct Code: Matrix33& Matrix33::operator=(Matrix33&& otherObject)
 ```
 Since I'm working on seperate files (implementation/declaration) I need to use the scope resolution operator.
 
+6. ``` Matrix33 Matrix33::operator<<() ``` 
+This is wrong because the << operator *must* be a non-member (aka friend function) to access the class’s private data (3x3 Matrix pointer). By declaring it as a friend, you allow the operator function to access private and protected members of your class, so it can print the matrix contents directly.
+
+    **Summary:**  
+    - `friend` gives the operator access to private members.
+    - This is necessary for printing internal data that isn’t public.
+
 
 
 ## Questions:

@@ -1,6 +1,8 @@
 #ifndef _MATRIX33_H
 #define _MATRIX33_H
 
+#include <iostream>
+
 class Matrix33
 {
     public:
@@ -20,6 +22,12 @@ class Matrix33
 
     /*Move Assignment Operator*/
     Matrix33& operator=(Matrix33&& otherObject);
+
+    /*Overload Operator for Matrix Multiplication*/
+    Matrix33 operator*(const Matrix33& other) const;
+
+    /*Overload Operator for Matrix Print*/
+    friend std::ostream& operator<<(std::ostream& os, const Matrix33& matrix);
 
     private:
     int** Matrix;

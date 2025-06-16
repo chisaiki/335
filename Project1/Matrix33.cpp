@@ -9,13 +9,11 @@ void Matrix33::printFunc()
     {
         for (int j = 0; j < 3; j++)
         {
-            std::cout << Matrix[i][j];
+            std::cout << Matrix[i][j] << " ";
         }
 
         std::cout << std::endl;
     }
-
-    std::cout << "Address: " << &Matrix << std::endl;
 }
 
 /*Default Constructor*/
@@ -102,3 +100,34 @@ Matrix33& Matrix33::operator=(Matrix33&& otherObject)
     return *this;
 }
 
+/*Overload Operator for Matrix Multiplication*/
+Matrix33 Matrix33::operator*(const Matrix33& other) const
+{
+    int resultArray[3][3] = {0};
+    for (int i = 0; i < 3; i++) 
+    {
+        for (int j = 0; j < 3; j++) 
+        {
+            for (int k = 0; k < 3; k++) 
+            /*Performs the sum of products for each element*/
+            {
+                resultArray[i][j] += Matrix[i][k] * other.Matrix[k][j];
+            }
+        }
+    }
+    return Matrix33(resultArray);
+}
+
+/*Overload Operator for Matrix Print*/
+std::ostream& operator<<(std::ostream& os, const Matrix33& matrix)
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            os << matrix.Matrix[i][j] << " ";
+        }
+        os << std::endl;
+    }
+    return os;
+}
