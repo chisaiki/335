@@ -29,6 +29,8 @@ class Matrix33
     /*Overload Operator for Matrix Print*/
     friend std::ostream& operator<<(std::ostream& os, const Matrix33& matrix);
 
+    friend std::istream& operator>>(std::istream& in, Matrix33& matrix);
+
     private:
     int** Matrix;
 };

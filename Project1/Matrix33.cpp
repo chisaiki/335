@@ -131,3 +131,17 @@ std::ostream& operator<<(std::ostream& os, const Matrix33& matrix)
     }
     return os;
 }
+
+/*Overload Operator for Matrix Input*/
+std::istream& operator>>(std::istream& in, Matrix33& matrix)
+{
+    std::cout << "Please enter 9 consecutive integers: "; 
+    for (int i = 0; i < 3; ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+        {
+            in >> matrix.Matrix[i][j];
+        }
+    }
+    return in;
+}

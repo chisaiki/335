@@ -41,4 +41,7 @@ int main()
 
     std::cout << c;
 
+    std::cin >> c;
+    std::cout << c;
+
 }
