@@ -103,6 +103,36 @@ Matrix33 Matrix33::operator*(const Matrix33& other) const
     return Matrix33(resultArray);
 }
 
+/*Overload * operator for scalar multiplication*/
+Matrix33 Matrix33::operator*(int scalar) const
+{
+    int resultArray[3][3] = {0};
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            resultArray[i][j] = Matrix[i][j] * scalar;
+        }
+    }
+
+    return Matrix33(resultArray);
+}
+
+/*Overload + operator for matrix addition*/
+Matrix33 Matrix33::operator+(const Matrix33& other) const
+{
+    int resultArray[3][3] = {0};
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            resultArray[i][j] = Matrix[i][j] + other.Matrix[i][j];
+        }
+    }
+
+    return Matrix33(resultArray);
+}
+
 int& Matrix33::operator()(int row, int column) const
 {
     return Matrix[row][column];

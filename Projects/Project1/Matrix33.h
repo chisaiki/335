@@ -27,6 +27,13 @@ class Matrix33
     /*Overload Operator for Matrix Multiplication*/
     Matrix33 operator*(const Matrix33& other) const;
 
+    /*Overload * operator for scalar multiplication*/
+    Matrix33 operator*(int scalar) const;
+
+    /*Overload + operator for matrix addition*/
+    Matrix33 operator+(const Matrix33& other) const;
+
+    /*Overload () for access to row/column data*/
     int& operator()(int row, int column) const;
 
     /*Overload Operator for Matrix Print*/
