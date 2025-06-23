@@ -1,4 +1,4 @@
-# Matrix 3 x 3
+# Problem 1: Matrix 3 x 3
 
 ``` 
 For each of the functions above(number 3-14) tell me the big O run time and space time of your algorithm with an explanation. 
@@ -6,7 +6,9 @@ For each of the functions above(number 3-14) tell me the big O run time and spac
 
 **Solution:** Its is all O(1) because all operations are finite and a constant number. It does not scale since input size of the array is not increasing. Space complexity is also constant, because at most one new 3 x 3 array is created to store results.
 
-# Matrix n x m
+# Problem 2
+
+# Problem 3: Matrix n x m
 ``` 
 For each of the functions above(number 3-14) tell me the big O run time and space time of your algorithm with an explanation. 
 ```
