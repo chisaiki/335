@@ -89,7 +89,12 @@
         return *this;
     }
 
-    // /*Overload Operator for Matrix Multiplication*/
+    /*Overload Operator for Matrix Multiplication*/
+
+    /*Overload Operator for Scalar Multiplication*/
+
+    /*Overload Operator for Matrix Addition*/
+
     // Matrixnm Matrixnm::operator*(const Matrixnm& other) const{}
 
     // int& Matrixnm::operator()(int row, int column) const{}
