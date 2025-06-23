@@ -22,32 +22,30 @@ int main()
     // for (const auto& vector : result) {
     //     std::cout << std::endl << vector << std::endl; 
     //}
+
+     /*Test Matrix Addition - Create two valid matrices*/
+    int array1[2][3] = {{1, 2, 3}, {4, 5, 6}};
+    int array2[2][3] = {{7, 8, 9}, {10, 11, 12}};
+    int array3[3][2] = {{7, 8}, {9, 10}, {11, 12}};
     
-    int array[4][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,15}, {16,17,18,19,20}};
+    Matrixnm matrix1(2, 3, (int*)array1);
+    Matrixnm matrix2(2, 3, (int*)array2);
+    Matrixnm matrix3(3, 2, (int*)array3);
+    
+    std::cout << "Matrix 1:\n" << matrix1 << std::endl;
+    std::cout << "Matrix 2:\n" << matrix2 << std::endl;
+    
+    // Test matrix addition
+    Matrixnm addResult = matrix1 + matrix3;
+    std::cout << "Matrix 1 + Matrix 2:\n" << addResult << std::endl;
 
-    std::vector<std::vector<int>> testMatrix = {
-        {1, 2, 3, 4, 5},
-        {6, 7, 8, 9, 10},
-        {11, 12, 13, 14, 15},
-        {16, 17, 18, 19, 20}
-    };
+    /*Column == Row*/
+    Matrixnm multResult = matrix1 * matrix3;
+    std::cout << "Matrix 1 * Matrix 2:\n" << multResult << std::endl;
 
-    /*Why auto? auto deduces that 'row' is of type: std::vector<int>*/
-    for (const auto& row : testMatrix) {
-        for (int v : row) {
-            std::cout << v << " ";
-        }
-        std::cout << std::endl;
-    }
+    Matrixnm scalarResult = matrix1 * 3;
+    std::cout << "Matrix 1 * 3:\n" << scalarResult << std::endl;
 
-
-    /*test copy constructor*/
-    Matrixnm vector2(4, 5, (int*)array); 
-    std::cout << vector2 << std::endl;
-
-    Matrixnm vector3 = std::move(vector2);
-    std::cout << vector3 << std::endl;
-    std::cout << "VEC2" << vector2 << std::endl;
 
     
 }
