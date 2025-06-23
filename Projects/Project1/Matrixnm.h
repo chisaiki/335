@@ -31,7 +31,11 @@ class Matrixnm
     /*Overload Operator for Matrix Multiplication*/
     Matrixnm operator*(const Matrixnm& other) const;
 
-    int& operator()(int row, int column) const;
+    /*Overload * operator for scalar multiplication*/
+    Matrixnm operator*(int scalar) const;
+
+    /*Overload + operator for matrix addition*/
+    Matrixnm operator+(const Matrixnm& other) const;
 
     /*Overload Operator for Matrix Print*/
     friend std::ostream& operator<<(std::ostream& os, const Matrixnm& matrix);

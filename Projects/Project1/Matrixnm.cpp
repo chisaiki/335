@@ -32,7 +32,6 @@
         Matrix = other.Matrix;
     }
     
-
     /*Move Constructor*/
     Matrixnm::Matrixnm(Matrixnm&& other) 
     {
@@ -90,14 +89,81 @@
     }
 
     /*Overload Operator for Matrix Multiplication*/
+    Matrixnm Matrixnm::operator*(const Matrixnm& other) const
+    {
+        /*the number of columns in the first matrix must equal the number of rows in the second matrix*/
+        if(this->columnM_ != other.rowN_)  // Fixed condition
+        {
+            throw std::invalid_argument("Matrix dimensions incompatible for multiplication.");
+        }
+
+        /*The resulting matrix will have dimensions: this->rowN_ x other.columnM_*/
+        Matrixnm result;
+        result.rowN_ = this->rowN_;
+        result.columnM_ = other.columnM_;  // Fixed: use other's columns
+        result.Matrix.resize(result.rowN_, std::vector<int>(result.columnM_, 0));  // Initialize to 0
+
+        /*Matrix multiplication: result[i][j] = sum(this[i][k] * other[k][j])*/
+        for(int i = 0; i < this->rowN_; i++)
+        {
+            for(int j = 0; j < other.columnM_; j++) /*iterate through other's columns*/
+            {
+                result.Matrix[i][j] = 0; 
+                for(int k = 0; k < this->columnM_; k++)  
+                {
+                    result.Matrix[i][j] += this->Matrix[i][k] * other.Matrix[k][j];
+                }
+            }
+        }
+
+        return result;
+    }
 
     /*Overload Operator for Scalar Multiplication*/
+    Matrixnm Matrixnm::operator*(int scalar) const
+    {
+        Matrixnm result;
+        /*Make sure result matrix is the same dimensions*/
+        result.rowN_ = this->rowN_;
+        result.columnM_ = this->columnM_;
+        result.Matrix.resize(rowN_, std::vector<int>(columnM_));
 
-    /*Overload Operator for Matrix Addition*/
+        for(int i = 0; i < this->rowN_; i++)
+        {
+            for(int j = 0; j < this->columnM_; j++)
+            {
+                result.Matrix[i][j] = Matrix[i][j] * scalar;
+            }
+        }
 
-    // Matrixnm Matrixnm::operator*(const Matrixnm& other) const{}
+        return result;
+    }
 
-    // int& Matrixnm::operator()(int row, int column) const{}
+    /*Overload + operator for matrix addition*/
+    Matrixnm Matrixnm::operator+(const Matrixnm& other) const
+    {
+        /*matrix addition is only defined when the matrices are of the same size.*/
+        if(this->columnM_ != other.columnM_ || this->rowN_ != other.rowN_)
+        {
+            throw std::invalid_argument("Addition not possible.");
+        }
+
+        Matrixnm result;
+        /*Make sure result matrix is the same dimensions*/
+        result.rowN_ = this->rowN_;
+        result.columnM_ = this->columnM_;
+        result.Matrix.resize(rowN_, std::vector<int>(columnM_));
+
+        for(int i = 0; i < this->rowN_; i++)
+        {
+            for(int j = 0; j < this->columnM_; j++)
+            {
+                result.Matrix[i][j] = Matrix[i][j] + other.Matrix[i][j];
+            }
+        }
+
+        return result;
+    }
 
     /*Overload Operator for Matrix Print*/
     std::ostream& operator<<(std::ostream& os, const Matrixnm& matrix) {
@@ -140,9 +206,45 @@
     {
         if (matrixObject.rowN_ != matrixObject.columnM_)
         {
-            std::cout << "Cannot compute determinant" << std::endl;
-            return 0;
+            throw std::invalid_argument("Determinant only defined for square matrices.");
         }
-
         
+        int n = matrixObject.rowN_;
+        
+        // Base cases
+        if (n == 1) {
+            return matrixObject.Matrix[0][0];
+        }
+        
+        if (n == 2) {
+            return matrixObject.Matrix[0][0] * matrixObject.Matrix[1][1] - 
+                   matrixObject.Matrix[0][1] * matrixObject.Matrix[1][0];
+        }
+        
+        // For larger matrices, use cofactor expansion along first row
+        int det = 0;
+        for (int j = 0; j < n; j++) {
+            // Create minor matrix (remove row 0 and column j)
+            Matrixnm minor;
+            minor.rowN_ = n - 1;
+            minor.columnM_ = n - 1;
+            minor.Matrix.resize(n - 1, std::vector<int>(n - 1));
+            
+            // Fill minor matrix
+            for (int i = 1; i < n; i++) {
+                for (int k = 0; k < n; k++) {
+                    if (k < j) {
+                        minor.Matrix[i-1][k] = matrixObject.Matrix[i][k];
+                    } else if (k > j) {
+                        minor.Matrix[i-1][k-1] = matrixObject.Matrix[i][k];
+                    }
+                }
+            }
+            
+            // Add cofactor to determinant
+            int cofactor = ((j % 2 == 0) ? 1 : -1) * matrixObject.Matrix[0][j] * determinant(minor);
+            det += cofactor;
+        }
+        
+        return det;
     }
