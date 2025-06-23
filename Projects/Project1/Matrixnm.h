@@ -2,13 +2,14 @@
 #define _MATRIX33_H
 
 #include <iostream>
+#include <vector>  // Add this include
 
 
 class Matrixnm
 {
     private:
     int rowN_, columnM_;
-    int** Matrix;
+    std::vector<std::vector<int>> Matrix; 
 
     public:
     /*Default Constructor*/

@@ -25,12 +25,31 @@ int main()
     
     int array[4][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,15}, {16,17,18,19,20}};
 
-    Matrixnm matrix(4, 5, (int*)array);
-    std::cout << matrix << std::endl;
+    std::vector<std::vector<int>> testMatrix = {
+        {1, 2, 3, 4, 5},
+        {6, 7, 8, 9, 10},
+        {11, 12, 13, 14, 15},
+        {16, 17, 18, 19, 20}
+    };
 
-    Matrixnm copyMatrix(matrix);
-    std::cout << copyMatrix;
+    /*Why auto? auto deduces that 'row' is of type: std::vector<int>*/
+    for (const auto& row : testMatrix) {
+        for (int v : row) {
+            std::cout << v << " ";
+        }
+        std::cout << std::endl;
+    }
 
+
+    /*test copy constructor*/
+    Matrixnm vector2(4, 5, (int*)array); 
+    std::cout << vector2 << std::endl;
+
+    Matrixnm vector3 = std::move(vector2);
+    std::cout << vector3 << std::endl;
+    std::cout << "VEC2" << vector2 << std::endl;
+
+    
 }
 
 // std::vector<Vector3> getAx(const Matrix33& matrixObject, Vector3& vectorObject)

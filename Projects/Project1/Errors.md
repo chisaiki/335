@@ -62,6 +62,9 @@ The operator() for a matrix class is used to access or modify an element at a sp
     Use the public accessor I defined already [the overloaded operator()] :
     Correct Way: ``` matrixObject(i, j)```
 
+9. int* existingArray -> expects int* (pointer to int), so you can't just pass the address of the first element<br>
+   Without the cast, the compiler doesn't know that you want to treat the 2D array as a linear sequence of integers.
+
 
 
 ## Questions:
