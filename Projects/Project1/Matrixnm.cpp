@@ -92,7 +92,7 @@
     Matrixnm Matrixnm::operator*(const Matrixnm& other) const
     {
         /*the number of columns in the first matrix must equal the number of rows in the second matrix*/
-        if(this->columnM_ != other.rowN_)  // Fixed condition
+        if(this->columnM_ != other.rowN_)  
         {
             throw std::invalid_argument("Matrix dimensions incompatible for multiplication.");
         }
@@ -100,8 +100,8 @@
         /*The resulting matrix will have dimensions: this->rowN_ x other.columnM_*/
         Matrixnm result;
         result.rowN_ = this->rowN_;
-        result.columnM_ = other.columnM_;  // Fixed: use other's columns
-        result.Matrix.resize(result.rowN_, std::vector<int>(result.columnM_, 0));  // Initialize to 0
+        result.columnM_ = other.columnM_; 
+        result.Matrix.resize(result.rowN_, std::vector<int>(result.columnM_, 0)); 
 
         /*Matrix multiplication: result[i][j] = sum(this[i][k] * other[k][j])*/
         for(int i = 0; i < this->rowN_; i++)
@@ -211,7 +211,7 @@
         
         int n = matrixObject.rowN_;
         
-        // Base cases
+        /*Base cases*/
         if (n == 1) {
             return matrixObject.Matrix[0][0];
         }
@@ -221,16 +221,16 @@
                    matrixObject.Matrix[0][1] * matrixObject.Matrix[1][0];
         }
         
-        // For larger matrices, use cofactor expansion along first row
+        /*For larger matrices, use cofactor expansion along first row*/
         int det = 0;
         for (int j = 0; j < n; j++) {
-            // Create minor matrix (remove row 0 and column j)
+            /*Create minor matrix*/
             Matrixnm minor;
             minor.rowN_ = n - 1;
             minor.columnM_ = n - 1;
             minor.Matrix.resize(n - 1, std::vector<int>(n - 1));
             
-            // Fill minor matrix
+            /*Fill minor matrix*/
             for (int i = 1; i < n; i++) {
                 for (int k = 0; k < n; k++) {
                     if (k < j) {
@@ -241,7 +241,7 @@
                 }
             }
             
-            // Add cofactor to determinant
+            /*Add cofactor to determinant*/
             int cofactor = ((j % 2 == 0) ? 1 : -1) * matrixObject.Matrix[0][j] * determinant(minor);
             det += cofactor;
         }
