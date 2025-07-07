@@ -4,24 +4,22 @@
 #include <stdexcept>
 
 template <class Comparable>
-class MinHeap
+class MaxHeap
 {
 public:
     ///////////////////////////////////////////////////////////////////////////////
-    MinHeap(): current_size_(0),max_size_(100000){}
+    MaxHeap(): current_size_(0),max_size_(100000){}
 
 
     ///////////////////////////////////////////////////////////////////////////////
-    MinHeap(const Comparable arr[], int size): current_size_(size),max_size_(100000)
+    MaxHeap(const Comparable arr[], int size): current_size_(size),max_size_(100000)
     {
         if(size > max_size_) 
             throw std::overflow_error("Overflow, when making heap");
 
-        /*Stores the array elements from arr to our heap array*/
         for (int i=1; i <= current_size_; i++)
             array_[i] = arr[i-1];
-        
-        /*Reorganizes the heap array to formatted as an actual min heap*/
+            
         heapify();
     }
 
@@ -34,7 +32,7 @@ public:
 
         // Percolate up
         int hole = ++current_size_;
-        while (hole > 1 && new_item < array_[hole /2])
+        while (hole > 1 && new_item > array_[hole /2])
         {
             array_[hole] = array_[hole/2];
             hole = hole /2;
@@ -52,14 +50,14 @@ public:
         while (2* hole <= current_size_) 
         {
             child = hole * 2; // left child of hole
-            if (child != current_size_ && array_[child + 1] < array_[child])
-                // right child exists and is smaller than left , so make child its index
+            if (child != current_size_ && array_[child + 1] > array_[child])
+                // right child exists and is larger than left, so make child its index
                 child ++;
-            if(array_[child] < temp)
-                // copy smaller child into hole
+            if(array_[child] > temp)
+                // copy larger child into hole
                 array_[hole] = array_[child];
-            else break; // both children are bigger than hole
-            // repeat with hold being child that was copied up
+            else break; // both children are smaller than hole
+            // repeat with hole being child that was copied up
             hole = child;
         }
         array_[hole] = temp;
@@ -67,7 +65,7 @@ public:
 
 
     ///////////////////////////////////////////////////////////////////////////
-    Comparable deleteMin()
+    Comparable deleteMax()
     {
         if (current_size_ <= 0) 
             throw std::underflow_error("Underflow, when making heap");
