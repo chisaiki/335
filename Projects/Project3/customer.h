@@ -1,7 +1,10 @@
 #include <iostream>
-#include <string>
 #include <cstdlib>
 #include <ctime>
+#include <vector>
+#include <string>
+#include <algorithm>
+
 
 class Customer
 {

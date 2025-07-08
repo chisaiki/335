@@ -1,8 +1,16 @@
 #pragma once
-
 #include <iostream>
 #include <stdexcept>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+#include <string>
+#include <algorithm>
 
+/*Comparable is just a generic type parameter that allows 
+your heap to work with any data type that supports comparison 
+operations (int, double, string, custom objects, etc.).*/
 template <class Comparable>
 class MaxHeap
 {
@@ -17,9 +25,11 @@ public:
         if(size > max_size_) 
             throw std::overflow_error("Overflow, when making heap");
 
+        /*Stores the array elements from arr to our heap array*/
         for (int i=1; i <= current_size_; i++)
             array_[i] = arr[i-1];
-            
+        
+        /*Reorganizes the heap array to formatted into an actual max heap*/   
         heapify();
     }
 

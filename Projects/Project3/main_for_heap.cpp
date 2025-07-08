@@ -1,25 +1,10 @@
-#include "min_heap.h"
 #include "max_heap.h"
 #include "customer.h"
-#include <cstdlib>
-#include <ctime>
-#include <vector>
-#include <string>
-#include <algorithm>
 
 using namespace std;
 
-// Vector to store customer history
+/*Vector to store customer history*/
 vector<Customer> customerHistory;
-
-template <class Comparable>
-void deleteAll(MinHeap<Comparable>& heap)
-{
-    int size = heap.getSize();
-    for(int i = 0; i < size; i++)
-        cout<<heap.deleteMin()<<" ";
-    cout<<endl;
-}
 
 int main()
 {
@@ -47,42 +32,38 @@ int main()
     customerHeap.insert(customer6);
     customerHeap.insert(customer7);
     customerHeap.insert(customer8);
-    
-    cout << "Customer heap created with " << customerHeap.getSize() << " customers" << endl;
-    
+        
     /*Test deleting customers (highest priority first)*/
-    cout << "Deleting customers in priority order:" << endl;
-    while(customerHeap.getSize() > 0) {
+    cout << "Deleting customers in priority order..." << endl;
+    while(customerHeap.getSize() > 0) 
+    {
         Customer deletedCustomer = customerHeap.deleteMax();
         
-        /*Set service time for the deleted customer and add to history*/
+        /*Set service time for the deleted customer and add to history vector*/
         deletedCustomer.SetServiceTime();
         customerHistory.push_back(deletedCustomer);
-        
-        cout << "Deleted customer: " << deletedCustomer.getName() 
-             << " (Priority: " << deletedCustomer.getPriorityLevel() 
-             << ", Service Time: " << deletedCustomer.getServiceTime() << " min)" << endl;
     }
     
-    // Display customer history
+    /*Display customer history*/
     cout << "\n=== Customer Service History ===" << endl;
     for(size_t i = 0; i < customerHistory.size(); i++) {
-        cout << "Customer " << (i+1) << ": " << customerHistory[i].getName()
-             << " - Priority: " << customerHistory[i].getPriorityLevel()
-             << ", Service Time: " << customerHistory[i].getServiceTime() << " min" << endl;
+        cout << "Customer: " << customerHistory[i].getName()
+             << " (Priority: " << customerHistory[i].getPriorityLevel()
+             << "), Service Time: " << customerHistory[i].getServiceTime() << " minutes." << endl;
     }
 
+    /*Sort history based on Service Time*/
     sort(customerHistory.begin(), customerHistory.end(), [](const Customer& a, const Customer& b) {
         return a.getServiceTime() < b.getServiceTime();  // Sort by service time ascending
     });
     
+    /*Display sorted history*/
     cout << "\n=== Customer Service History SORTED BY SERVICE TIME ===" << endl;
     for(size_t i = 0; i < customerHistory.size(); i++) {
-        cout << "Customer " << (i+1) << ": " << customerHistory[i].getName()
-             << " - Priority: " << customerHistory[i].getPriorityLevel()
-             << ", Service Time: " << customerHistory[i].getServiceTime() << " min" << endl;
+        cout << "Customer: " << customerHistory[i].getName()
+             << " (Priority: " << customerHistory[i].getPriorityLevel()
+             << "), Service Time: " << customerHistory[i].getServiceTime() << " minutes." << endl;
     }
-
 
     return 0;
 }
