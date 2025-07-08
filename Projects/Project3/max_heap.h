@@ -73,7 +73,7 @@ public:
         Comparable popped=array_[1];
         array_[1] = array_[current_size_];
         current_size_--;
-        percolateDown(1);
+        percolateDown(1);        
         return popped;
     }
 

@@ -3,6 +3,9 @@
 #include <iostream>
 #include <stdexcept>
 
+/*Comparable is just a generic type parameter that allows 
+your heap to work with any data type that supports comparison 
+operations (int, double, string, custom objects, etc.).*/
 template <class Comparable>
 class MinHeap
 {
