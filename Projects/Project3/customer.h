@@ -1,9 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
-#include <vector>
 #include <string>
-#include <algorithm>
 
 
 class Customer
@@ -33,7 +30,7 @@ class Customer
             this->service_time_ = (rand() % 60) + 1;
         }
 
-        // Getter methods
+        /*Getter methods*/
         std::string getName() const { return name_; }
         int getPriorityLevel() const { return priority_level_; }
         int getServiceTime() const { return service_time_; }
