@@ -32,7 +32,6 @@ int main()
                     /*Default file is books.txt*/
                     default:{
                         std::cout << "Load" << std::endl;
-                        /*Read through the file*/
                         readFile(array);
                         break;
                     }
