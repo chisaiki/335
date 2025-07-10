@@ -54,7 +54,7 @@ int main()
 
     /*Sort history based on Service Time*/
     sort(customerHistory.begin(), customerHistory.end(), [](const Customer& a, const Customer& b) {
-        return a.getServiceTime() < b.getServiceTime();  // Sort by service time ascending
+        return a.getServiceTime() < b.getServiceTime();
     });
     
     /*Display sorted history*/

@@ -3,6 +3,11 @@
 
 std::string array[15];
 
+struct Test{
+    int value;
+    std::string name;
+}myTest;
+
 int main()
 {
     /*Check if file is valid: Not empty, invalid entries*/
@@ -44,6 +49,10 @@ int main()
             case 'S':{
                 /*Need iterator*/
                 std::cout << "Search" << std::endl;
+                myTest.name = "sam";
+                myTest.value = 99;
+
+                std::cout << "Name is " << myTest.name << std::endl;
                 break;
             }
             
