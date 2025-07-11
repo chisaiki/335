@@ -24,13 +24,11 @@ private:
     //AvlNode* insert(AvlNode* node, const std::string& key, const std::string& value);
     AvlNode* remove(AvlNode* node, const std::string& key, const std::string& value);
     void printInOrder(AvlNode* node) const;
-    void printNumberedInOrder(AvlNode* node, int& count) const;
     void destroyTree(AvlNode* node);
     void makeEmpty(AvlNode * & node );
     void printTree(AvlNode *node, std::ostream & out ) const;
     AvlNode* findMin (AvlNode* node);
     AvlNode* findMax (AvlNode* node);
-    bool contains (const std::string& key, AvlNode* node) const;
     int height(AvlNode* node);
     int getBalanceFactor(AvlNode* node);
 
@@ -47,9 +45,7 @@ public:
     void insert(const std::string& key, const std::string& value);
     std::string* search(const std::string& key);
     void remove(const std::string& key);
-    bool contains(const std::string& key) const;
     void printInOrder() const;
-    void printNumberedInOrder(int& count) const;
     bool isEmpty() const;
     void clear();
 };

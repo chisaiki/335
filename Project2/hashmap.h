@@ -1,11 +1,20 @@
 #include "avl_tree.h"
-#include <iostream>
-#include <list>
 #include <vector>
-#include <utility> // For std::pair
 #include <string>
 #include <map>
 #include <functional> // For std::hash
+#include <fstream>
+#include <vector>
+
+struct Books{
+    /*Title (string) — used as the key.*/
+    std::string title_;
+    /*Author (string)*/
+    std::string author_;
+    /*Genre (string)*/
+    std::string genre_;
+};
+
 
 class HashTable 
 {
@@ -27,12 +36,13 @@ public:
     HashTable(int buckets) : numBuckets(buckets), table(buckets) {}
 
     // Insert a key-value pair
-    void insert(const std::string& key, const std::string &value) 
+    void insert(const std::string& key, const Books& book) 
     {
         int index = hashFunction(key);
         
-        // Insert key-value pair into AVL tree
-        table[index].insert(key, value);
+        // Combine book info into a single string
+        std::string bookInfo = book.author_ + ", " + book.genre_;
+        table[index].insert(key, bookInfo);
     }
 
     // Remove a key-value pair by key
@@ -55,37 +65,41 @@ public:
             return *result;
         }
         
-        return "Key not found";
+        return "Book Not Found. May not exist in records.";
     }
 
     // Display the hash table
     void display() const {
         for (int i = 0; i < numBuckets; ++i) {
             std::cout << "Bucket " << i << ": ";
-            
-            // For now, just indicate if the bucket has content
-            // You would need to add a method to AvlTree to traverse and display all pairs
-            std::cout << "[AVL Tree - use tree traversal to see contents]";
-            std::cout << "\n";
+            if (table[i].isEmpty()) {
+                std::cout << "[Empty]";
+            } else {
+                table[i].printInOrder();
+                std::cout << " ";
+            }
+            std::cout << std::endl;
         }
     }
+
+    void clear(){
+        std::cout << "\nClearing Table Of Previous Storage\n" << std::endl;
+        for (int i = 0; i < numBuckets; ++i) {
+            table[i].clear();
+        }
+    }
+
+    bool empty(){
+        int emptyCounter = 0;
+        for (int i = 0; i < numBuckets; ++i) {
+            if (table[i].isEmpty()) {
+                emptyCounter++;
+            }
+        }
+
+        if(emptyCounter != numBuckets)
+            return false;
+        else
+            return true;
+    }
 };
-
-int main() {
-    HashTable hashTable(5); // Create a hash table with 5 buckets
-
-    // Insert string key-value pairs
-    hashTable.insert("apple", "fruit");
-    hashTable.insert("carrot", "vegetable");
-    hashTable.insert("banana", "fruit");
-
-    // Search
-    std::cout << hashTable.search("apple") << std::endl;  // "fruit"
-    std::cout << hashTable.search("carrot") << std::endl;  // "fruit"
-
-
-    // Remove
-    hashTable.remove("carrot");
-
-    return 0;
-}

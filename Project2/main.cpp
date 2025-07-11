@@ -1,77 +1,64 @@
 #include "mains_functions.cpp"
-#include "hashmap.h"
 
 std::string array[15];
 
 int main()
 {
-    AvlTree tree;
-    AvlNode* book = new AvlNode("The Great Gatsby", "value");
+    HashTable hashTable(7);
 
-
-    tree.insert(book->key, book->value);
-    tree.insert("hello2", "sam1");
-    tree.insert("TheGreatTheGreat", "sam2");
-
-    /*Check if file is valid: Not empty, invalid entries*/
     /*Allow user to continously interact with the book database until they choose exit*/
     char selection;
     while(1){
         std::cout << "\n------- Main Menu -------\nSelect an option:\n(L)oad books from file.\n(S)earch for a book by title.\n(D)isplay table.\n(E)xit\nYour Selection: ";
         std::cin >> selection;
-        /*Options*/
+        
         switch(selection) {
-            case 'L':{
+            case 'L':{ /*Load*/
 
                 char customList;
-                std::cout << "\nType 'y' to use a custom file, or any other key to use the default file 'books.txt': ";
+                std::cout << "\nType 'y' to use a custom file, or enter other letter to use the default file 'books.txt': ";
                 std::cin >> customList;
                 
                 switch(customList){
                     /*Allow user to type in custom file*/
                      case 'y':{
+                
                         std::string filename;
                         std::cout << "\nEnter File Name: ";
                         std::cin >> filename;
                         
-                        //readFile(array, filename);
+                        if(hashTable.empty() == false)
+                            hashTable.clear();
+
+                        readFile(hashTable, filename);
                         break;
                     }
                     /*Default file is books.txt*/
                     default:{
-                        std::cout << "Load" << std::endl;
-                        //readFile(array);
+
+                        readFile(hashTable);
                         break;
                     }
                 }
-                /*Create an object for each book*/
-                /*Store each object into the hash map based on the index*/
                 break;
             }
                 
-            case 'S':{
-                std::string searchTitle;
-                std::cout << "--Search Mode--" << std::endl;
-                std::cout << "Enter book title: ";
-                std::cin.ignore(); /*Clears Buffers of Previous Inputs*/
-                std::getline(std::cin >> std::ws, searchTitle);
-                if(tree.search(searchTitle) == NULL)
-                {
-                    std::cout << "Entry Not Found! " << searchTitle << " does not exist in the records." << std::endl;
-                }
-                else
-                    std::cout<< "Entry Found: \n" << *(tree.search(searchTitle));
+            case 'S':{ /*Search*/
+
+                std::cout<< "Result: " << hashTable.search(searchFunction()) << std::endl;
                 break;
             }
             
-            case 'D':{
-                /*Need iterator*/
-                std::cout << "Display" << std::endl;
+            case 'D':{ /*Display*/
+
+                std::cout << "\n--Display Mode--" << std::endl;
+                hashTable.display();
                 break;
             }
             
-            case 'E':{
-                std::cout << "Exiting Program ..." << std::endl;
+            case 'E':{ /*Exit Program*/
+
+                std::cout << "\nExiting Program ..." << std::endl;
                 return 0;
             }
 

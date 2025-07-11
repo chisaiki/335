@@ -119,20 +119,8 @@ void AvlTree::printInOrder() const{
 void AvlTree::printInOrder(AvlNode* node) const {
     if (!node) return;
     printInOrder(node->left_);
-    std::cout << node->key << ": " << node->value << std::endl;
+    std::cout << node->key << ": " << node->value << " || "; //std::endl;
     printInOrder(node->right_);
-}
-
-void AvlTree::printNumberedInOrder(int& count) const {
-    printNumberedInOrder(root_, count);
-}
-
-void AvlTree::printNumberedInOrder(AvlNode* node, int& count) const {
-    if (node) {
-        printNumberedInOrder(node->left_, count);
-        std::cout << "Book " << count++ << ". " << node->key << " - " << node->value << "\n";
-        printNumberedInOrder(node->right_, count);
-    }
 }
 
 void AvlTree::makeEmpty(AvlNode * & node ){
@@ -142,14 +130,6 @@ void AvlTree::makeEmpty(AvlNode * & node ){
             delete node;
         }
         node = nullptr;
-}
-
-void AvlTree::printTree(AvlNode *node, std::ostream & out ) const {
-    if (node != nullptr) {
-        printTree(node->left_, out);
-        out << node->key << ": " << node->value << std::endl;
-        printTree(node->right_, out);
-    }
 }
 
 AvlNode* AvlTree::findMin (AvlNode* node){
@@ -166,20 +146,7 @@ AvlNode* AvlTree::findMax (AvlNode* node){
     while(node->left_) node = node->left_;
 
     return node;
-}
 
-bool AvlTree::contains(const std::string& key) const {
-    return contains(key, root_);
-}
-
-bool AvlTree::contains (const std::string& key, AvlNode* node) const{
-    if(node==nullptr) return false;
-    else if(key < node-> value)
-        return contains( key, node->left_ );
-    else if(node->value < key)
-        return contains(key, node->right_);
-    else
-        return true; 
 }
 
 int AvlTree::height(AvlNode* node){
@@ -246,6 +213,7 @@ AvlNode* AvlTree::RL_rotation(AvlNode*& A){
 
 void AvlTree::clear() {
     makeEmpty(root_);
+    root_ = nullptr;  /*Ensure root is set to nullptr after clearing*/
 }
 
 bool AvlTree::isEmpty() const {
