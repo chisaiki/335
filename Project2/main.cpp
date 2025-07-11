@@ -3,13 +3,16 @@
 
 std::string array[15];
 
-struct Test{
-    int value;
-    std::string name;
-}myTest;
-
 int main()
 {
+    AvlTree tree;
+    AvlNode* book = new AvlNode("The Great Gatsby", "value");
+
+
+    tree.insert(book->key, book->value);
+    tree.insert("hello2", "sam1");
+    tree.insert("TheGreatTheGreat", "sam2");
+
     /*Check if file is valid: Not empty, invalid entries*/
     /*Allow user to continously interact with the book database until they choose exit*/
     char selection;
@@ -31,13 +34,13 @@ int main()
                         std::cout << "\nEnter File Name: ";
                         std::cin >> filename;
                         
-                        readFile(array, filename);
+                        //readFile(array, filename);
                         break;
                     }
                     /*Default file is books.txt*/
                     default:{
                         std::cout << "Load" << std::endl;
-                        readFile(array);
+                        //readFile(array);
                         break;
                     }
                 }
@@ -47,12 +50,17 @@ int main()
             }
                 
             case 'S':{
-                /*Need iterator*/
-                std::cout << "Search" << std::endl;
-                myTest.name = "sam";
-                myTest.value = 99;
-
-                std::cout << "Name is " << myTest.name << std::endl;
+                std::string searchTitle;
+                std::cout << "--Search Mode--" << std::endl;
+                std::cout << "Enter book title: ";
+                std::cin.ignore(); /*Clears Buffers of Previous Inputs*/
+                std::getline(std::cin >> std::ws, searchTitle);
+                if(tree.search(searchTitle) == NULL)
+                {
+                    std::cout << "Entry Not Found! " << searchTitle << " does not exist in the records." << std::endl;
+                }
+                else
+                    std::cout<< "Entry Found: \n" << *(tree.search(searchTitle));
                 break;
             }
             
